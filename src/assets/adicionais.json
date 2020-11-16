@@ -1,0 +1,34 @@
+{
+    "adicionais": [
+        {
+            "id": 1,
+            "descricao": "Adicional 1",
+            "valor": 2.5,
+            "inativo": null
+        },
+        {
+            "id": 2,
+            "descricao": "Adicional 2",
+            "valor": 2.5,
+            "inativo": null
+        },
+        {
+            "id": 3,
+            "descricao": "Adicional 3",
+            "valor": 2.5,
+            "inativo": null
+        },
+        {
+            "id": 4,
+            "descricao": "Adicional 4",
+            "valor": 2.5,
+            "inativo": null
+        },
+        {
+            "id": 5,
+            "descricao": "Adicional 5",
+            "valor": 2.5,
+            "inativo": null
+        }
+    ]
+}

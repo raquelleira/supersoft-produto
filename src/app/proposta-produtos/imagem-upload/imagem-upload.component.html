@@ -1,0 +1,12 @@
+<ngx-dropzone (change)="adicionarImagem($event)"
+              [accept]="'image/*'"
+              [multiple]="false">
+  <ngx-dropzone-label>Arraste a foto aqui!</ngx-dropzone-label>
+  <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                              *ngFor="let imagem of imagens"
+                              [removable]="true"
+                              (removed)="removerImagem(imagens)"
+                              [file]="imagem">
+    <ngx-dropzone-label>{{ imagem.name }} ({{ imagem.type }})</ngx-dropzone-label>
+  </ngx-dropzone-image-preview>
+</ngx-dropzone>

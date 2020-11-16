@@ -1,0 +1,59 @@
+<div class="main-div"
+     fxLayout="row"
+     fxLayoutAlign="center center"
+     fxFlex="100">
+  <mat-card fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="70"
+            *ngIf="form">
+    <mat-horizontal-stepper #stepper
+                            fxFill>
+      <!-- Produto -->
+      <mat-step [stepControl]="form">
+        <ng-template matStepLabel>Dados</ng-template>
+        <app-produto-dados-form [form]="form"
+                                [produto]="produto"></app-produto-dados-form>
+      </mat-step>
+      <!-- Imagem -->
+      <mat-step [stepControl]="form">
+        <ng-template matStepLabel>Imagem</ng-template>
+        <app-produto-imagem-form [form]="form"
+                                 [produto]="produto"></app-produto-imagem-form>
+      </mat-step>
+      <!-- Ingredientes -->
+      <mat-step [stepControl]="form">
+        <ng-template matStepLabel>Ingredientes</ng-template>
+        <app-produto-ingredientes-form [form]="form"
+                                       [produto]="produto"></app-produto-ingredientes-form>
+      </mat-step>
+      <!-- Adicionais -->
+      <mat-step [stepControl]="form">
+        <ng-template matStepLabel>Adicionais</ng-template>
+        <app-produto-adicionais-form [form]="form"
+                                     [produto]="produto"></app-produto-adicionais-form>
+      </mat-step>
+      <!-- Características -->
+      <mat-step [stepControl]="form">
+        <ng-template matStepLabel>Características</ng-template>
+        <app-produto-caracteristicas-form [form]="form"
+                                          [produto]="produto"></app-produto-caracteristicas-form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Gravar</ng-template>
+        <h3 fxLayoutAlign="center center">Gravar dados do produto</h3>
+        <div fxLayoutAlign="end end">
+          <button mat-button
+                  color="accent"
+                  matStepperPrevious>
+            <mat-icon>navigate_before</mat-icon>
+          </button>
+          <button mat-button
+                  color="accent"
+                  (click)="submit()">
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+</div>

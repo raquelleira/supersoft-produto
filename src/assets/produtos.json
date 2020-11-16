@@ -1,0 +1,60 @@
+{
+    "produtos": [
+        {
+            "id": 1,
+            "id_categoria": 1,
+            "nome": "Cachorro Quente",
+            "preco_custo": 3.50,
+            "preco_venda": 9.90,
+            "medida": "",
+            "obs": "",
+            "foto": "",
+            "adicionais": [1, 2],
+            "caracteristicas": [{
+                "id": 1,
+                "caracteristica": "Bla Bla Bla",
+                "valor_und": "12.5"
+            }],
+            "ingredientes": [3, 4]
+        },
+        {
+            "id": 2,
+            "id_categoria": 2,
+            "nome": "Misto Quente",
+            "preco_custo": 3.50,
+            "preco_venda": 9.90,
+            "medida": "",
+            "obs": "",
+            "foto": "",
+            "adicionais": [],
+            "caracteristicas": [],
+            "ingredientes": []
+        },
+        {
+            "id": 3,
+            "id_categoria": 1,
+            "nome": "Coxinha",
+            "preco_custo": 3.50,
+            "preco_venda": 9.90,
+            "medida": "",
+            "obs": "",
+            "foto": "",
+            "adicionais": [],
+            "caracteristicas": [],
+            "ingredientes": []
+        },
+        {
+            "id": 4,
+            "id_categoria": 1,
+            "nome": "Doguinho",
+            "preco_custo": 3.50,
+            "preco_venda": 9.90,
+            "medida": "",
+            "obs": "",
+            "foto": "",
+            "adicionais": [],
+            "caracteristicas": [],
+            "ingredientes": []
+        }
+    ]
+}

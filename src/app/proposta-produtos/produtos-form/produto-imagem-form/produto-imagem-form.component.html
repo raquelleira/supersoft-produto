@@ -1,0 +1,17 @@
+<div fxLayoutAlign="center center">
+  <app-imagem-upload (arquivoCarregado)="arquivoCarregado($event)"></app-imagem-upload>
+  <div fxLayoutAlign="center center">
+    <img #imagemProduto
+         [src]="urlFoto"
+         width="300"
+         height="300">
+  </div>
+</div>
+<div fxLayoutAlign="end end">
+  <button mat-button color="accent" matStepperPrevious>
+    <mat-icon>navigate_before</mat-icon>
+  </button>
+  <button mat-button color="accent" matStepperNext>
+    <mat-icon>navigate_next</mat-icon>
+  </button>
+</div>

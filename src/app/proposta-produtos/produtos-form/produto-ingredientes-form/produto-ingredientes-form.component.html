@@ -1,0 +1,36 @@
+<form [formGroup]="form"
+      fxFill>
+  <mat-form-field fxFill>
+    <mat-chip-list #ingredienteList
+                   [formGroup]="ingredienteForm">
+      <mat-chip *ngFor="let ingrediente of form.get('id_ingredientes').value"
+                [selectable]="true"
+                [removable]="true"
+                (removed)="removerIngrediente(ingrediente)">
+        {{ getDescricaoIngrediente(ingrediente) }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Selecione os ingredientes..."
+             #ingredienteInput
+             [matAutocomplete]="ingredienteAutoComplete"
+             [matChipInputFor]="ingredienteList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             formControlName="ingrediente"/>
+    </mat-chip-list>
+    <mat-autocomplete #ingredienteAutoComplete="matAutocomplete"
+                     (optionSelected)="ingredienteSelecionado($event)">
+      <mat-option *ngFor="let ingrediente of ingredientesFiltrados"
+                  [value]="ingrediente.descricao">
+        {{ ingrediente?.descricao }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <div fxLayoutAlign="end end">
+    <button mat-button color="accent" matStepperPrevious>
+      <mat-icon>navigate_before</mat-icon>
+    </button>
+    <button mat-button color="accent" matStepperNext>
+      <mat-icon>navigate_next</mat-icon>
+    </button>
+  </div>
+</form>

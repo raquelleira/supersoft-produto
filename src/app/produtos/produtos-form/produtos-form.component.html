@@ -1,0 +1,231 @@
+<div class="main-div"
+     fxLayout="row"
+     fxLayoutAlign="center center"
+     fxFlex="100">
+  <mat-card fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="70">
+    <mat-horizontal-stepper #stepper
+                            *ngIf="form"
+                            fxFill>
+      <!-- Produto -->
+      <mat-step [stepControl]="form">
+        <form [formGroup]="form"
+              fxLayout="column"
+              fxLayoutAlign="center stretch">
+          <ng-template matStepLabel>Dados</ng-template>
+          <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput
+                   formControlName="nome"
+                   placeholder="Nome"
+                   required/>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Categoria...</mat-label>
+            <mat-select formControlName="id_categoria">
+              <mat-option *ngFor="let categoria of categorias"
+                          [value]="categoria.id">
+                {{ categoria.descricao }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Preço de Custo</mat-label>
+            <input matInput
+                   formControlName="preco_custo"
+                   placeholder="Preço de custo"
+                   type="number"/>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Preço de Venda</mat-label>
+            <input matInput
+                   formControlName="preco_venda"
+                   placeholder="Preço de venda"
+                   type="number"/>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Medida</mat-label>
+            <mat-select formControlName="medida">
+              <mat-option value="UN">UN</mat-option>
+              <mat-option value="LT">LT</mat-option>
+              <mat-option value="KG">KG</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Observação</mat-label>
+            <input matInput
+                   formControlName="obs"
+                   placeholder="Observação"/>
+          </mat-form-field>
+          <div fxLayoutAlign="end end">
+            <button mat-button color="accent" matStepperNext>
+              <mat-icon>navigate_next</mat-icon>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <!-- Ingredientes -->
+      <mat-step [stepControl]="form">
+        <form [formGroup]="form">
+          <ng-template matStepLabel>Ingredientes</ng-template>
+          <mat-form-field class="chip-list">
+            <mat-chip-list #ingredienteList
+                           formGroupName="nonRequestItems">
+              <mat-chip *ngFor="let ingrediente of form.get('id_ingredientes').value"
+                        [selectable]="true"
+                        [removable]="true"
+                        (removed)="removerItem(ingrediente, 'id_ingredientes')">
+                {{ getItem(ingrediente, ingredientes)?.descricao }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Selecione os ingredientes..."
+                     #ingredienteInput
+                     [matAutocomplete]="ingredienteAutoComplete"
+                     [matChipInputFor]="ingredienteList"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     formControlName="ingrediente"/>
+            </mat-chip-list>
+            <mat-autocomplete #ingredienteAutoComplete="matAutocomplete"
+                             (optionSelected)="itemSelecionado($event, ingredientes, 'id_ingredientes')">
+              <mat-option *ngFor="let ingrediente of ingredientesFiltrados"
+                          [value]="ingrediente.descricao">
+                {{ ingrediente?.descricao }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <div fxLayoutAlign="end end">
+            <button mat-button color="accent" matStepperPrevious>
+              <mat-icon>navigate_before</mat-icon>
+            </button>
+            <button mat-button color="accent" matStepperNext>
+              <mat-icon>navigate_next</mat-icon>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <!-- Adicionais -->
+      <mat-step [stepControl]="form">
+        <form [formGroup]="form">
+          <ng-template matStepLabel>Adicionais</ng-template>
+          <mat-form-field class="chip-list">
+            <mat-chip-list #adicionalList
+                           formGroupName="nonRequestItems">
+              <mat-chip *ngFor="let adicional of form.get('id_adicional').value"
+                        [selectable]="true"
+                        [removable]="true"
+                        (removed)="removerItem(adicional, 'id_adicional')">
+                {{ getItem(adicional, adicionais)?.descricao }} - R$:{{ getItem(adicional, adicionais)?.valor }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Selecione os adicionais..."
+                     #adicionalInput
+                     [matAutocomplete]="adicionalAutoComplete"
+                     [matChipInputFor]="adicionalList"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     formControlName="adicional"/>
+            </mat-chip-list>
+            <mat-autocomplete #adicionalAutoComplete="matAutocomplete"
+                             (optionSelected)="itemSelecionado($event, adicionais, 'id_adicional')">
+              <mat-option *ngFor="let adicional of adicionaisFiltrados"
+                          [value]="adicional.descricao">
+                {{ adicional?.descricao }} - R$: {{ adicional?.valor }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <div fxLayoutAlign="end end">
+            <button mat-button color="accent" matStepperPrevious>
+              <mat-icon>navigate_before</mat-icon>
+            </button>
+            <button mat-button color="accent" matStepperNext>
+              <mat-icon>navigate_next</mat-icon>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <!-- Características -->
+      <mat-step [stepControl]="form">
+        <!-- Form -->
+        <form [formGroup]="form"
+              fxLayout="column"
+              fxLayoutAlign="center stretch">
+          <ng-template matStepLabel>Características</ng-template>
+          <ng-container formGroupName="nonRequestItems">
+            <mat-form-field formGroupName="caracteristica">
+              <mat-label>Nome</mat-label>
+              <input matInput
+                     formControlName="caracteristica"
+                     placeholder="Nome" required />
+            </mat-form-field>
+            <mat-form-field formGroupName="caracteristica">
+              <mat-label>Valor unidade</mat-label>
+              <input matInput
+                     formControlName="valor_und"
+                     placeholder="Valor unidade"
+                     required
+                     type="number"/>
+            </mat-form-field>
+            <button mat-button
+                    (click)="adicionarCaracteristica()"
+                    [disabled]="form.get('nonRequestItems')?.get('caracteristica')?.invalid">
+              <mat-icon>add_box</mat-icon>
+            </button>
+          </ng-container>
+        </form>
+        <!-- Lista -->
+        <table mat-table [dataSource]="listaProdutoCaracteristica"
+               matSort
+               fxFill>
+          <ng-container matColumnDef="caracteristica">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+            <td mat-cell *matCellDef="let caracteristica">
+              {{ caracteristica.get('caracteristica').value }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="valor_und">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Valor unidade
+            </th>
+            <td mat-cell *matCellDef="let caracteristica">
+              {{ caracteristica.get('valor_und').value }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Excluir</th>
+            <td mat-cell *matCellDef="let caracteristica">
+              <button mat-icon-button (click)="excluirCaracteristica(caracteristica)">
+                <mat-icon color="warn">delete_forever</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="colunasCategoria"></tr>
+          <tr mat-row *matRowDef="let row; columns: colunasCategoria"></tr>
+        </table>
+        <div fxLayoutAlign="end end">
+          <button mat-button color="accent" matStepperPrevious>
+            <mat-icon>navigate_before</mat-icon>
+          </button>
+          <button mat-button color="accent" matStepperNext>
+            <mat-icon>navigate_next</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Gravar</ng-template>
+        <h3 fxLayoutAlign="center center">Gravar dados do produto</h3>
+        <div fxLayoutAlign="end end">
+          <button mat-button
+                  color="accent"
+                  matStepperPrevious>
+            <mat-icon>navigate_before</mat-icon>
+          </button>
+          <button mat-button
+                  color="accent"
+                  (click)="submit()">
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+</div>

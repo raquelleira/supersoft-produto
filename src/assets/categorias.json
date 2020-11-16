@@ -1,0 +1,24 @@
+{
+    "categorias": [
+        {
+            "id": 1,
+            "descricao": "Categoria 1"
+        },
+        {
+            "id": 2,
+            "descricao": "Categoria 2"
+        },
+        {
+            "id": 3,
+            "descricao": "Categoria 3"
+        },
+        {
+            "id": 4,
+            "descricao": "Categoria 4"
+        },
+        {
+            "id": 5,
+            "descricao": "Categoria 5"
+        }
+    ]
+}

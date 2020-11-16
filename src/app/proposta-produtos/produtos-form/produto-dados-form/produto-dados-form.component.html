@@ -1,0 +1,53 @@
+<form [formGroup]="form"
+      fxLayout="column"
+      fxLayoutAlign="center stretch">
+  <mat-form-field>
+    <mat-label>Nome</mat-label>
+    <input matInput
+            formControlName="nome"
+            placeholder="Nome"
+            required/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Categoria...</mat-label>
+    <mat-select formControlName="id_categoria">
+      <mat-option *ngFor="let categoria of categorias"
+                  [value]="categoria.id">
+        {{ categoria.descricao }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Preço de Custo</mat-label>
+    <input matInput
+            formControlName="preco_custo"
+            placeholder="Preço de custo"
+            type="number"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Preço de Venda</mat-label>
+    <input matInput
+           formControlName="preco_venda"
+           placeholder="Preço de venda"
+           type="number"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Medida</mat-label>
+    <mat-select formControlName="medida">
+      <mat-option value="UN">UN</mat-option>
+      <mat-option value="LT">LT</mat-option>
+      <mat-option value="KG">KG</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Observação</mat-label>
+    <input matInput
+           formControlName="obs"
+           placeholder="Observação"/>
+  </mat-form-field>
+  <div fxLayoutAlign="end end">
+    <button mat-button color="accent" matStepperNext>
+      <mat-icon>navigate_next</mat-icon>
+    </button>
+  </div>
+</form>

@@ -1,0 +1,28 @@
+{
+    "ingredientes": [
+        {
+            "id": 1,
+            "descricao": "Pão"
+        },
+        {
+            "id": 2,
+            "descricao": "Maionese"
+        },
+        {
+            "id": 3,
+            "descricao": "Salsicha"
+        },
+        {
+            "id": 4,
+            "descricao": "Queijo Mussarela"
+        },
+        {
+            "id": 5,
+            "descricao": "Presunto"
+        },
+        {
+            "id": 6,
+            "descricao": "Bacon"
+        }
+    ]
+}

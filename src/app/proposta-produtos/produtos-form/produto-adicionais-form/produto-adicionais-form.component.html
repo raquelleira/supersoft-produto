@@ -1,0 +1,60 @@
+<form [formGroup]="form"
+      fxFill>
+  <mat-form-field fxFill>
+    <mat-chip-list #adicionalList
+                    [formGroup]="adicionalForm">
+      <mat-chip *ngFor="let adicional of form.get('id_adicional').value"
+                [selectable]="true"
+                [removable]="true"
+                (removed)="removerAdicional(adicional, 'id_adicional')">
+        {{ getAdicional(adicional)?.descricao }} - R$:{{ getAdicional(adicional)?.valor }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Selecione os adicionais..."
+              #adicionalInput
+              [matAutocomplete]="adicionalAutoComplete"
+              [matChipInputFor]="adicionalList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              formControlName="adicional"/>
+    </mat-chip-list>
+    <mat-autocomplete #adicionalAutoComplete="matAutocomplete"
+                      (optionSelected)="adicionalSelecionado($event)">
+      <mat-option *ngFor="let adicional of adicionaisFiltrados"
+                  [value]="adicional.descricao">
+        {{ adicional?.descricao }} - R$: {{ adicional?.valor }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+<form [formGroup]="criarAdicionalForm"
+      fxFill>
+  <mat-form-field>
+    <mat-label>Descrição</mat-label>
+    <input matInput
+           formControlName="descricao"
+           placeholder="Descrição" required />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Valor</mat-label>
+    <input matInput
+           formControlName="valor"
+           placeholder="Valor"
+           required
+           type="text"
+           currencyMask
+           [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"/>
+  </mat-form-field>
+  <button mat-button
+          (click)="criarAdicional()"
+          [disabled]="criarAdicionalForm.invalid">
+    <mat-icon>add_box</mat-icon>
+  </button>
+</form>
+<div fxLayoutAlign="end end">
+  <button mat-button color="accent" matStepperPrevious>
+    <mat-icon>navigate_before</mat-icon>
+  </button>
+  <button mat-button color="accent" matStepperNext>
+    <mat-icon>navigate_next</mat-icon>
+  </button>
+</div>
